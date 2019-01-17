@@ -1,7 +1,19 @@
 globalias() {
-   zle _expand_alias
-   zle expand-word
-   zle self-insert
+    local blacklist=(
+        ls
+        grep
+        egrep
+        fgrep
+        cp
+        df
+        more
+    )
+
+    if [[ ! -n "${blacklist[(r)$LBUFFER]}" ]]; then
+        zle _expand_alias
+        zle expand-word
+    fi
+    zle self-insert
 }
 zle -N globalias
 

@@ -48,3 +48,44 @@ function vi_mode_prompt_info() {
 if [[ "$RPS1" == "" && "$RPROMPT" == "" ]]; then
   RPS1='$(vi_mode_prompt_info)'
 fi
+
+## custom settings
+t_SI=
+t_SR=
+t_EI=
+if [ -n "$(env | grep KONSOLE)" ]; then
+    t_SI="\e]50;CursorShape=1\x7"
+    t_SR="\e]50;CursorShape=2\x7"
+    t_EI="\e]50;CursorShape=0\x7"
+else
+    t_SI="\e[6 q"
+    t_SR="\e[4 q"
+    t_EI="\e[2 q"
+fi
+function zle-keymap-select zle-line-init zle-line-finish  () {
+    if [ $(env | grep KONSOLE | wc -l) ]; then
+        if [ $KEYMAP = vicmd ]; then
+            # the command mode for vi
+            echo -ne $t_EI
+        else
+            # the insert mode for vi
+            echo -ne $t_SI
+        fi
+    fi
+    zle reset-prompt
+    zle -R
+}
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
+# disable delay when switching to normal mode
+export KEYTIMEOUT=1
+# Better searching in command mode
+bindkey -M vicmd '?' history-incremental-search-backward
+bindkey -M vicmd '/' history-incremental-search-forward
+# Beginning search with arrow keys
+bindkey "^[OA" up-line-or-beginning-search
+bindkey "^[OB" down-line-or-beginning-search
+bindkey -M vicmd "k" up-line-or-beginning-search
+bindkey -M vicmd "j" down-line-or-beginning-search
+
