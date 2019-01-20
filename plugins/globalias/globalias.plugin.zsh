@@ -1,12 +1,15 @@
 globalias() {
     local blacklist=(
         ls
+        la
+        l
         grep
         egrep
         fgrep
         cp
         df
         more
+        open
     )
 
     if [[ ! -n "${blacklist[(r)$LBUFFER]}" ]]; then
