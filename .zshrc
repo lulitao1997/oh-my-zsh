@@ -21,7 +21,7 @@ export PATH="$HOME/.local/bin:$PATH"
 alias sp="export {http,https}_proxy='http://127.0.0.1:8118' && export all_proxy='socks5://127.0.0.1:1080'"
 alias up="unset {http,https,all}_proxy"
 
-if [[ -n $SSH_CONNECTION ]]; then
+if [[ -z $SSH_CONNECTION ]]; then
     sp
 fi
 
