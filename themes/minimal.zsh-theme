@@ -23,3 +23,7 @@ vcs_status() {
 
 PROMPT='%b%{$fg[white]%}%~ $(vcs_status)%(?:%{$fg_bold[cyan]%}$:%{$fg_bold[red]%}$) %b'
 RPROMPT='%(?..%{$fg_bold[red]%}$?%b)'
+
+if [[ -n SSH_CONNECTION ]]; then
+    PROMPT="%{$fg[cyan]%}$USER@%M%b:$PROMPT"
+fi
