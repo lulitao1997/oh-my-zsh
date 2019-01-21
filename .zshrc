@@ -6,11 +6,8 @@ ZSH_THEME="minimal" # "imajes"
 plugins=(git colored-man-pages notify vi-mode globalias) # zsh-vimode-visual)
 # User configuration
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+export EDITOR='nvim'
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -23,7 +20,10 @@ export PATH="$HOME/.local/bin:$PATH"
 # Proxy settings
 alias sp="export {http,https}_proxy='http://127.0.0.1:8118' && export all_proxy='socks5://127.0.0.1:1080'"
 alias up="unset {http,https,all}_proxy"
-sp
+
+if [[ -n $SSH_CONNECTION ]]; then
+    sp
+fi
 
 # Alias, for ease of use
 alias open='xdg-open'
