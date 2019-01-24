@@ -3,6 +3,8 @@
 
 ZSH_THEME="minimal" # "imajes"
 
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
 plugins=(git colored-man-pages notify vi-mode globalias) # zsh-vimode-visual)
 # User configuration
 # Preferred editor for local and remote sessions
